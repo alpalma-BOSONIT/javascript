@@ -57,15 +57,94 @@ const arrCities = [
 const removeNonCapitalCity = (arr) => arr.filter((x) => x.capital);
 console.log(removeNonCapitalCity(arrCities)); // 4 objects
 
-
-
-
 ```
 
 ## Ejercicio 4
+Dado tres arrays de números, sacar en un nuevo array la intersección de estos.
+
+```javascript
+
+// Initial data
+const arrNumber1 = [1,2,3];
+const arrNumber2 = [1,2,3,4,5];
+const arrNumber3 = [1,4,7,2];
+
+// Answer
+const findIntersection = (arr1, arr2, arr3) => {
+  const newArray = arr1.filter(
+    (x) => arr2.some(y => x === y) && arr3.some(y => x === y)
+  )
+  return newArray
+};
+
+console.log(findIntersection(arrNumber1, arrNumber2, arrNumber3));
+
+```
 ## Ejercicio 5
+Dado un array de ciudades, sacar en un nuevo array las ciudades no capitales con unos nuevos parámetros que sean city y isSpain. El valor de isSpain será un booleano indicando si es una ciudad de España.
+
+```javascript
+// initial data
+const arrCities2 = [
+  {city: 'Logroño', country: 'Spain', capital: false},
+  {city: 'Bordeaux', country: 'France', capital: false},
+  {city: 'Madrid', country: 'Spain', capital: true},
+  {city: 'Florence', country: 'Italy', capital: true},
+  {city: 'Oslo', country: 'Norway', capital: true},
+  {city: 'Jaén', country: 'Spain', capital: false}
+]
+
+// answer
+const cityIsSpain = (arr) => {
+  const notCapital = arr.filter((x) => !x.capital && x.country === "Spain");
+  const isSpain = notCapital.map(x => ({country: x.country, isSpain: true}) );
+
+  return isSpain;
+};
+
+console.log(cityIsSpain(arrCities2)); // 2 objects
+```
+
 ## Ejercicio 6
+Crea una función que redondee un número float a un número específico de decimales.
+
+La función debe tener dos parámetros: 
+- Primer parámetro es un número float con x decimales
+- Según parámetro es un int que indique el número de decimales al que redondear
+- Evitar usar el método toFixed()
+
+```javascript
+const roundTo = (float, numOfDecimals) => {
+  let num = "1";
+  for (let i = 0; i < numOfDecimals; i++) {
+    num += "0";
+  }
+  return Math.floor(float * Number(num)) / Number(num);
+};
+
+console.log(roundTo(5.34335, 2)); // 5.34
+```
+
 ## Ejercicio 7
+Crea una función que retorne los campos de un objeto que equivalgan a un valor “falsy” después de ser ejecutados por una función específica.
+La fundación debe tener dos parámetros:
+- Primer parámetro es un objeto con x número de campos y valores
+- Segundo parametro es una funcion que retorne un booleano, que se tiene que aplicar al objeto del primer parámetro
+
+```javascript
+const test = { a: 1, b: "2", c: 3 };
+
+const returnFalsyValues = (obj, fun = (x) => typeof x === "string") => {
+  const falsyObject = {};
+  for (let key in obj) {
+    if (!fun(obj[key])) falsyObject[key] = obj[key]
+  }
+
+  return falsyObject
+};
+console.log(returnFalsyValues(test, x => typeof x === 'number')); // {b: "2"}
+```
+
 ## Ejercicio 8
 ## Ejercicio 9
 ## Ejercicio 10
