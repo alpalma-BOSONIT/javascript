@@ -146,6 +146,71 @@ console.log(returnFalsyValues(test, x => typeof x === 'number')); // {b: "2"}
 ```
 
 ## Ejercicio 8
+Crea una función que convierta un número de bytes en un formato con valores legibles ('B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB')
+La función debe tener 2 parámetros:
+- Primer parámetro debe ser el número de bytes
+- Segundo parámetro debe ser un número especificando la cantidad de dígitos a los que se debe truncar el resultado (esto se puede hacer con Number.prototype.toPrecision()). Por defecto, este parámetro debe de tener un valor de 3.
+
+```javascript
+const fromBytesToFormattedSizeUnits = (bytes, decimals = 3) => {
+  const division = 1000;
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+  const isNegative = bytes.toString()[0] === "-";
+  const num = isNegative
+    ? Number(bytes.toString().slice(1, bytes.toString().length))
+    : bytes;
+
+  const i = Math.floor(Math.log(num) / Math.log(division));
+
+  return `${isNegative ? "-" : ""}${parseFloat(
+    (num / Math.pow(division, i)).toPrecision(decimals)
+  )} ${sizes[i]}`;
+};
+
+// Not especially proud of this one ... Need feedback
+```
+
 ## Ejercicio 9
+Crea una función que a partir de un objeto de entrada, retorne un objeto asegurándose que las claves del objeto estén en lowercase.
+La función debe tener un objeto como único parámetro.
+
+```javascript
+// Initial data
+const myObject = { NamE: 'Charles', ADDress: 'Home Street' };
+
+// Answer
+const toLowercaseKeys = (obj) => {
+  const lowercaseObject = {}
+  for (let key in obj) {
+    lowercaseObject[key.toLowerCase()] = obj[key]
+  }
+  return lowercaseObject
+}
+
+console.log(toLowercaseKeys(myObject))
+
+```
+
 ## Ejercicio 10
+Crea una función que elimine las etiquetas html o xml de un string.
+La función debe tener un string como único parámetro.
+
+
+```javascript
+const test = '<div><span>lorem</span> <strong>ipsum</strong></div>';
+
+// Answer(s)
+// Solution 1
+const removeHTMLTags1 = (str) => {
+  const myDiv = document.createElement('div')
+  myDiv.innerHTML = str
+  return myDiv.textContent
+}
+
+console.log(removeHTMLTags1(test)) // lorem ipsum
+
+// Solution 2
+const removeHTMLTags2 = (str) => str.replace(/<[^>]*>/g, '')
+console.log(removeHTMLTags2(test)) // lorem ipsum
+```
 ## Ejercicio 11
